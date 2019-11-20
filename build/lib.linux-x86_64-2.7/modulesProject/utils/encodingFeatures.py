@@ -2,18 +2,10 @@ import pandas as pd
 
 class encodingFeatures(object):
 
-    def __init__(self, dataSet, treshold):
+    def __init__(self, dataSet, option):
 
         self.dataSet = dataSet
-
-        if treshold == "DEFAULT":
-            self.treshold = 20
-        else:
-            try:
-                self.treshold = int(treshold)
-            except:
-                self.treshold = 20
-                pass
+        self.option = option
 
         self.evalData()
 
@@ -82,7 +74,7 @@ class encodingFeatures(object):
         #evaluamos el umbral...
         self.dataValue = float(self.newFeatures)*100/float(self.countKey)
 
-        if self.dataValue>self.treshold:#ordinal encoder
+        if self.option == 1:#ordinal encoder
             self.ordinalEncoderData(self.matrixDict)
         else:#
             matrixAdd = self.oneHotEncoderData(self.matrixDict, self.dataSet)
