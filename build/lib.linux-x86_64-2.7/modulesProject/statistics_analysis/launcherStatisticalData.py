@@ -15,13 +15,18 @@ from modulesProject.statistics_analysis import getFeatures
 from modulesProject.statistics_analysis import getDataByType
 from modulesProject.statistics_analysis import processStatiticsSummary
 
+from modulesProject.utils import ScaleNormalScore
+from modulesProject.utils import ScaleMinMax
+from modulesProject.utils import ScaleDataSetLog
+from modulesProject.utils import ScaleLogNormalScore
+
 import json
 import pandas as pd
 
 #definicion de la clase
 class launcherStatisticalProcess(object):
 
-    def __init__(self, user, job, dataSet, idDataSet, pathResponse, optionProcess):
+    def __init__(self, user, job, dataSet, idDataSet, pathResponse, optionProcess, optionScale):
 
         self.user = user
         self.job = job
@@ -29,10 +34,34 @@ class launcherStatisticalProcess(object):
         self.idDataSet = idDataSet
         self.pathResponse = pathResponse
         self.optionProcess = int(optionProcess)#el metodo a ejecutar...
+        self.optionScale = optionScale
 
         #process feature...
         self.handlerFeature = getFeatures.processFeatureInDataSet(self.dataSet, self.idDataSet)
         self.handlerFeature.processDataValues()
+
+    #metodo que permite hacer el preprocesamiento de la data
+    def preprocessData(self):
+
+        self.dataSet.dropna(how='any',axis=0)#remove row with dummy values
+
+        #ahora aplicamos el procesamiento segun lo expuesto
+        if self.optionScale == 1:#normal scale
+            applyNormal = ScaleNormalScore.applyNormalScale(self.dataSet)
+            self.dataSet = applyNormal.dataTransform
+
+        if self.optionScale == 2:#min max scaler
+            applyMinMax = ScaleMinMax.applyMinMaxScaler(self.dataSet)
+            self.dataSet = applyMinMax.dataTransform
+
+        if self.optionScale == 3:#log scale
+            applyLog = ScaleDataSetLog.applyLogScale(self.dataSet)
+            self.dataSet = applyLog.dataTransform
+
+        if self.optionScale == 4:#log normal scale
+            applyLogNormal = ScaleLogNormalScore.applyLogNormalScale(self.dataSet)
+            self.dataSet = applyLogNormal.dataTransform
+
 
     #metodo que permite evaluar la opcion a ejecutar...
     def checkExec(self):
