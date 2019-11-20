@@ -63,6 +63,9 @@ class mutualInformation(object):
             applyLogNormal = ScaleLogNormalScore.applyLogNormalScale(dataSetNewFreq)
             dataSetNorm = applyLogNormal.dataTransform
 
+        if self.optionNormalize == 0:
+            dataSetNorm = dataSetNewFreq
+
         return dataSetNorm
 
     def singleMI(self, array1, array2):

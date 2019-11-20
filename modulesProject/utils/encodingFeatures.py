@@ -74,7 +74,7 @@ class encodingFeatures(object):
         #evaluamos el umbral...
         self.dataValue = float(self.newFeatures)*100/float(self.countKey)
 
-        if self.option == 1:#ordinal encoder
+        if self.option == 0:#ordinal encoder
             self.ordinalEncoderData(self.matrixDict)
         else:#
             matrixAdd = self.oneHotEncoderData(self.matrixDict, self.dataSet)

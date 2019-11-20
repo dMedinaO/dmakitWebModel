@@ -19,12 +19,13 @@ class featureAnalysis(object):
         self.user = user
         self.job = job
         self.dataSet = dataSet
+        self.dataSet.dropna(how='any',axis=0)#remove row with dummy values
         self.pathResponse = pathResponse
 
     #metodo que permite la ejecucion de la correlacion de datos
-    def execCorrelationData(self, optionNormalize):
+    def execCorrelationData(self, optionNormalize, optionEncode):
 
-        corrObject = correlationValue.correlationMatrixData(self.user, self.job, self.dataSet, self.pathResponse, optionNormalize)
+        corrObject = correlationValue.correlationMatrixData(self.user, self.job, self.dataSet, self.pathResponse, optionNormalize, optionEncode)
         return corrObject.calculateCorrelationMatrix()
 
     #metodo que permite la ejecucion de la deformacion de espacio con random forest
@@ -39,7 +40,7 @@ class featureAnalysis(object):
         return mutualObject.makeMatrix()
 
     #metodo que permite la ejecucion de PCA information...
-    def execPCA(self, optionNormalize):
+    def execPCA(self, optionNormalize, optionEncode):
 
         pcaObject = PCA_Method.pca(self.user, self.job, self.dataSet, self.pathResponse, optionNormalize)
         return pcaObject.doPCA()

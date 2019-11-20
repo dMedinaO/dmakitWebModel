@@ -56,6 +56,8 @@ class pca(object):
 
 			applyLogNormal = ScaleLogNormalScore.applyLogNormalScale(dataSetNewFreq)
 			dataSetNorm = applyLogNormal.dataTransform
+		if self.optionNormalize == 0:
+			dataSetNorm = dataSetNewFreq
 
 		return dataSetNorm
 

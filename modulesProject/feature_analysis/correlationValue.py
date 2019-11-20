@@ -18,22 +18,26 @@ from modulesProject.utils import ScaleMinMax
 from modulesProject.utils import ScaleDataSetLog
 from modulesProject.utils import ScaleLogNormalScore
 
+from modulesProject.utils import encodingFeatures
+
 class correlationMatrixData(object):
 
-    def __init__(self, user, job, dataSet, pathResponse, optionNormalize):
+    def __init__(self, user, job, dataSet, pathResponse, optionNormalize, optionEncoded):
 
         self.user = user
         self.job = job
         self.dataSet = dataSet
         self.pathResponse = pathResponse
         self.optionNormalize = optionNormalize
+        self.optionEncoded = optionEncoded
 
     #metodo que permite normalizar el set de datos con respecto a la opcion entregada
     def normalizeDataSet(self):
 
-        #ahora transformamos el set de datos por si existen elementos discretos...
-        transformDataSet = transformFrequence.frequenceData(self.dataSet)
-        dataSetNewFreq = transformDataSet.dataTransform
+        #codificamos segun lo que corresponda
+        encodingData = encodingFeatures.encodingFeatures(self.dataSet, self.optionEncoded)
+        encodingData.evaluEncoderKind()
+        dataSetNewFreq = encodingData.dataSet
 
         dataSetNorm = ""
         #ahora aplicamos el procesamiento segun lo expuesto
@@ -52,6 +56,9 @@ class correlationMatrixData(object):
         if self.optionNormalize == 4:#log normal scale
             applyLogNormal = ScaleLogNormalScore.applyLogNormalScale(dataSetNewFreq)
             dataSetNorm = applyLogNormal.dataTransform
+
+        if self.optionNormalize == 0:#sin normalizar
+            dataSetNorm = dataSetNewFreq
 
         return dataSetNorm
 
