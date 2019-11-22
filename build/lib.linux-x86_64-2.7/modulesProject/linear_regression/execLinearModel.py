@@ -6,7 +6,10 @@ Orden option algorithm
 3. Lars Lasso
 4. Lasso
 5. Linear Regression
-6. Ridge Regression
+6. Logistic
+7. Multi-task-elastic
+8. Multi-task-lasso
+9. Ridge Regression
 '''
 
 from modulesProject.linear_regression import bayesianRegression
@@ -300,32 +303,32 @@ class execProcess(object):
             self.responseExec.update({"algorithm": "Ridge Regression"})
             self.responseExec.update({"Params": "Default"})
 
-            try:
+            #try:
                 #instancia al objeto...
-                ridgeObject = ridgeRegression.ridgeRegression(self.data, self.response)
-                ridgeObject.trainingMethod()
+            ridgeObject = ridgeRegression.ridgeRegression(self.data, self.response)
+            ridgeObject.trainingMethod()
 
-                performance = {}
-                performance.update({"r_score":ridgeObject.r_score})
-                performance.update({"predict_values": ridgeObject.predicctions.tolist()})
-                performance.update({"real_values": ridgeObject.target.tolist()})
+            performance = {}
+            performance.update({"r_score":ridgeObject.r_score})
+            performance.update({"predict_values": ridgeObject.predicctions.tolist()})
+            performance.update({"real_values": ridgeObject.target.tolist()})
 
-                #calculamos las medidas asociadas a la data de interes...
-                performanceValues = performanceData.performancePrediction(self.response, ridgeObject.predicctions.tolist())
-                pearsonValue = performanceValues.calculatedPearson()
-                spearmanValue = performanceValues.calculatedSpearman()
-                kendalltauValue = performanceValues.calculatekendalltau()
+            #calculamos las medidas asociadas a la data de interes...
+            performanceValues = performanceData.performancePrediction(self.response, ridgeObject.predicctions.tolist())
+            pearsonValue = performanceValues.calculatedPearson()
+            spearmanValue = performanceValues.calculatedSpearman()
+            kendalltauValue = performanceValues.calculatekendalltau()
 
-                #los agregamos al diccionario
-                performance.update({"pearson":pearsonValue})
-                performance.update({"spearman":spearmanValue})
-                performance.update({"kendalltau":kendalltauValue})
+            #los agregamos al diccionario
+            performance.update({"pearson":pearsonValue})
+            performance.update({"spearman":spearmanValue})
+            performance.update({"kendalltau":kendalltauValue})
 
-                self.responseExec.update({"Performance": performance})
-                errorData.update({"Process" : "OK"})
-            except:
-                errorData.update({"Process" : "ERROR"})
-                pass
+            self.responseExec.update({"Performance": performance})
+            errorData.update({"Process" : "OK"})
+            #except:
+            #    errorData.update({"Process" : "ERROR"})
+            #    pass
 
             self.responseExec.update({"errorExec": errorData})
 
