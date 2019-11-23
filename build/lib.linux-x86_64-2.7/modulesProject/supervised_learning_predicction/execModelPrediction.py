@@ -35,6 +35,7 @@ from modulesProject.supervised_learning_predicction import performanceData
 
 import pandas as pd
 import json
+from joblib import dump, load
 
 class execAlgorithm(object):
 
@@ -130,6 +131,11 @@ class execAlgorithm(object):
 
                 self.responseExec.update({"Performance": performance})
                 errorData.update({"Process" : "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(AdaBoostObject.AdaBoostModel, nameModel)
+
             except:
                 errorData.update({"Process" : "ERROR"})
                 pass
@@ -173,6 +179,11 @@ class execAlgorithm(object):
 
                 self.responseExec.update({"Performance": performance})
                 errorData.update({"Process" : "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(baggingObject.bagginModel, nameModel)
+
             except:
                 errorData.update({"Process" : "ERROR"})
                 pass
@@ -216,6 +227,11 @@ class execAlgorithm(object):
 
                 self.responseExec.update({"Performance": performance})
                 errorData.update({"Process" : "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(decisionObject.DecisionTreeAlgorithm, nameModel)
+
             except:
                 errorData.update({"Process" : "ERROR"})
                 pass
@@ -262,6 +278,11 @@ class execAlgorithm(object):
 
                 self.responseExec.update({"Performance": performance})
                 errorData.update({"Process" : "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(gradientObject.GradientAlgorithm, nameModel)
+
             except:
                 errorData.update({"Process" : "ERROR"})
                 pass
@@ -307,6 +328,10 @@ class execAlgorithm(object):
 
                 self.responseExec.update({"Performance": performance})
                 errorData.update({"Process" : "OK"})
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(knnObject.KNN_model, nameModel)
+
             except:
                 errorData.update({"Process" : "ERROR"})
                 pass
@@ -357,6 +382,11 @@ class execAlgorithm(object):
 
                 self.responseExec.update({"Performance": performance})
                 errorData.update({"Process" : "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(MLPObject.MLPModel, nameModel)
+
             except:
                 errorData.update({"Process" : "ERROR"})
                 pass
@@ -402,6 +432,11 @@ class execAlgorithm(object):
 
                 self.responseExec.update({"Performance": performance})
                 errorData.update({"Process" : "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(nuSVM.SVRAlgorithm, nameModel)
+
             except:
                 errorData.update({"Process" : "ERROR"})
                 pass
@@ -448,6 +483,10 @@ class execAlgorithm(object):
 
                 self.responseExec.update({"Performance": performance})
                 errorData.update({"Process" : "OK"})
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(rf.randomForesModel, nameModel)
+
             except:
                 errorData.update({"Process" : "ERROR"})
                 pass
@@ -492,6 +531,11 @@ class execAlgorithm(object):
 
                 self.responseExec.update({"Performance": performance})
                 errorData.update({"Process" : "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(svm.SVRAlgorithm, nameModel)
+
             except:
                 errorData.update({"Process" : "ERROR"})
                 pass

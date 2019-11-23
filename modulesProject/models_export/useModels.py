@@ -30,9 +30,12 @@ class useModels(object):
 
     def applyModel(self):
 
-        #load model
-        model = load(self.docModel)
-        responseClf = model.predict(self.data)
+        try:
+            #load model
+            model = load(self.docModel)
+            responseClf = model.predict(self.data)
 
-        dataFrame = pd.DataFrame(responseClf, columns=['response'])
-        dataFrame.to_csv(self.pathResponse+"responseModel.csv", index=False)
+            self.dataSet['responseModel'] = responseClf
+            self.dataSet.to_csv(self.pathResponse+"responseModel.csv", index=False)
+        except:
+            pass
