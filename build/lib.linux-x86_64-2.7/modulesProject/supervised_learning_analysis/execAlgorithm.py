@@ -47,8 +47,10 @@ from modulesProject.utils import ScaleMinMax
 from modulesProject.utils import ScaleDataSetLog
 from modulesProject.utils import ScaleLogNormalScore
 
+#manipulacion de datos
 import pandas as pd
 import json
+from joblib import dump, load
 
 class execAlgorithm(object):
 
@@ -127,6 +129,7 @@ class execAlgorithm(object):
             paramsData.update({"n_estimators": self.params[0]})
             paramsData.update({"algorithm": self.params[1]})
             self.response.update({"Params": paramsData})
+            self.response.update({"scale_options":self.optionNormalize})
             nameValidation = ""
             if self.validation == -1:
                 nameValidation = "LeaveOneOut"
@@ -151,6 +154,10 @@ class execAlgorithm(object):
 
                 self.response.update({"Performance": performance})
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(AdaBoostObject.AdaBoostAlgorithm, nameModel)
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -187,8 +194,10 @@ class execAlgorithm(object):
 
             self.response.update({"algorithm": "BaggingClassifier"})
             paramsData = {}
+
             paramsData.update({"n_estimators": int(self.params[0])})
             paramsData.update({"bootstrap": self.params[1]})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Params": paramsData})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
 
@@ -211,6 +220,10 @@ class execAlgorithm(object):
 
                 print bagginObject.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(bagginObject.BagginAlgorithm, nameModel)
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -248,6 +261,7 @@ class execAlgorithm(object):
             self.response.update({"algorithm": "BernoulliNB"})
             paramsData = {}
             self.response.update({"Params": "Default"})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
             errorData = {}
             try:
@@ -269,6 +283,10 @@ class execAlgorithm(object):
 
                 print bernoulliNB.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(bernoulliNB.BernoulliNBAlgorithm, nameModel)
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -308,6 +326,7 @@ class execAlgorithm(object):
             paramsData.update({"criterion": self.params[0]})
             paramsData.update({"splitter": self.params[1]})
             self.response.update({"Params": paramsData})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
             errorData = {}
 
@@ -329,6 +348,10 @@ class execAlgorithm(object):
 
                 print decisionTreeObject.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(decisionTreeObject.DecisionTreeAlgorithm, nameModel)
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -366,6 +389,7 @@ class execAlgorithm(object):
             self.response.update({"algorithm": "GaussianNB"})
             paramsData = {}
             self.response.update({"Params": "Default"})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
 
             errorData = {}
@@ -388,6 +412,11 @@ class execAlgorithm(object):
 
                 print gaussianObject.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(gaussianObject.GaussianNBAlgorithm, nameModel)
+
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -430,6 +459,7 @@ class execAlgorithm(object):
             paramsData.update({"min_samples_split":self.params[3]})
 
             self.response.update({"Params": paramsData})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
             errorData = {}
 
@@ -452,6 +482,11 @@ class execAlgorithm(object):
 
                 print gradientObject.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(gradientObject.GradientAlgorithm, nameModel)
+
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -494,6 +529,7 @@ class execAlgorithm(object):
             paramsData.update({"weights":self.params[3]})
 
             self.response.update({"Params": paramsData})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
             errorData = {}
 
@@ -514,6 +550,11 @@ class execAlgorithm(object):
 
                 print knnObect.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(knnObect.knnAlgorithm, nameModel)
+
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -562,6 +603,7 @@ class execAlgorithm(object):
             paramsData.update({"shuffle":self.params[8]})
 
             self.response.update({"Params": paramsData})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
 
             errorData = {}
@@ -583,6 +625,11 @@ class execAlgorithm(object):
 
                 print MLPObject.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(MLPObject.MLPAlgorithm, nameModel)
+
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -625,6 +672,7 @@ class execAlgorithm(object):
             paramsData.update({"gamma":self.params[3]})
 
             self.response.update({"Params": paramsData})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
             errorData = {}
 
@@ -647,6 +695,11 @@ class execAlgorithm(object):
 
                 print nuSVM.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(nuSVM.NuSVMAlgorithm, nameModel)
+
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -690,6 +743,7 @@ class execAlgorithm(object):
             paramsData.update({"bootstrap":self.params[4]})
 
             self.response.update({"Params": paramsData})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
             errorData = {}
 
@@ -711,6 +765,11 @@ class execAlgorithm(object):
 
                 print rf.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(rf.RandomForestAlgorithm, nameModel)
+
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
@@ -753,6 +812,7 @@ class execAlgorithm(object):
             paramsData.update({"gamma":self.params[3]})
 
             self.response.update({"Params": paramsData})
+            self.response.update({"scale_options":self.optionNormalize})
             self.response.update({"Validation": "Cross Validation: " + str(self.validation)})
             errorData = {}
 
@@ -773,6 +833,11 @@ class execAlgorithm(object):
 
                 print svm.performanceData.scoreData
                 errorData.update({"exec_algorithm": "OK"})
+
+                #exportamos el modelo en formato joblib
+                nameModel =self.pathResponse+self.user+"/"+self.job+"/modelExport"+str(self.job)+".joblib"
+                dump(svm.SVMAlgorithm, nameModel)
+
             except:
                 errorData.update({"exec_algorithm": "ERROR"})
                 pass
