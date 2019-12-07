@@ -67,13 +67,17 @@ class checkJobs(object):
         emailData.sendEmailUser()
         self.connect.closeConnectionDB()
 
-        dataSet = "/var/www/html/smartTraining/dataStorage/%s/%s/%s" % (iduser, job, nameDataset)
+        dataSet = "/var/www/html/dmakitWeb/dataStorage/%s/%s/%s" % (iduser, job, nameDataset)
         if tipo_job == "queue-PREDICTION":#prediction launcher
 
-            command = "python /var/www/html/smartTraining/model/launcherFullProcessPrediction.py %s %s %s /var/www/html/smartTraining/dataStorage/ %s %s &" % (iduser, job, dataSet, emailUser, nameUser)
-            os.system(command)
+            command = "python /var/www/html/dmakitWeb/model/launcherFullProcessPrediction.py %s %s %s /var/www/html/dmakitWeb/dataStorage/ %s %s &" % (iduser, job, dataSet, emailUser, nameUser)
+            #os.system(command)
             print command
-        else:#classification launcher
-            command = "python /var/www/html/smartTraining/model/launcherFullProcessClassification.py %s %s %s /var/www/html/smartTraining/dataStorage/ %s %s &" % (iduser, job, dataSet, emailUser, nameUser)
-            os.system(command)
+        elif tipo_job == "queue-CLASSIFICATION":
+            command = "python /var/www/html/dmakitWeb/model/launcherFullProcessClassification.py %s %s %s /var/www/html/dmakitWeb/dataStorage/ %s %s &" % (iduser, job, dataSet, emailUser, nameUser)
+            #os.system(command)
+            print command
+        else:#clustering process
+            pathResponse = "/var/www/html/dmakitWeb/dataStorage/"
+            command = "python /var/www/html/dmakitWeb/model/launcherClusteringService.py %s %s %s %s 1" % (dataSet, job, iduser, pathResponse)
             print command

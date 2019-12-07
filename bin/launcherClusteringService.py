@@ -1,17 +1,3 @@
-'''
-script que permite ejecutar el servicio de clustering,
-input:
-    dataSet
-    job
-    user
-    pathResponse
-response:
-    csv error process
-    csv result process
-    histogram calinski
-    histogram siluetas
-'''
-
 from modulesProject.clustering_analysis import callService
 from modulesProject.dataBase_module import ConnectDataBase
 from modulesProject.dataBase_module import HandlerQuery

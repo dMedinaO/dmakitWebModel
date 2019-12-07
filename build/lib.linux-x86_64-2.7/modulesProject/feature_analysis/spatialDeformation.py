@@ -65,7 +65,7 @@ class spatialDeformation(object):
 
             #obtenemos las importancias
             importances = pd.DataFrame({'feature':data.columns.tolist(),'importance':np.round(random_forest.feature_importances_,3)})
-            importances = importances.sort('importance',ascending=False).set_index('feature')
+            importances = importances.sort_values('importance',ascending=False).set_index('feature')
 
             #exportamos el resultado
             nameCSV = "%s%s/%s/rankingImportance_%s.csv" % (self.pathResponse, self.user, self.job, self.job)
@@ -85,11 +85,11 @@ class spatialDeformation(object):
             random_forest = RandomForestRegressor(max_depth=2, random_state=0, n_estimators=10, n_jobs=-1, criterion='mse')
             random_forest = random_forest.fit(data, target)
 
-                #obtenemos las importancias
+                    #obtenemos las importancias
             importances = pd.DataFrame({'feature':data.columns.tolist(),'importance':np.round(random_forest.feature_importances_,3)})
-            importances = importances.sort('importance',ascending=False).set_index('feature')
+            importances = importances.sort_values('importance',ascending=False).set_index('feature')
 
-                #exportamos el resultado
+                    #exportamos el resultado
             nameCSV = "%s%s/%s/rankingImportance_%s.csv" % (self.pathResponse, self.user, self.job, self.job)
             importances.to_csv(nameCSV)
             response = "OK"
