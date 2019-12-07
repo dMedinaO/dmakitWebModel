@@ -79,5 +79,5 @@ class checkJobs(object):
             print command
         else:#clustering process
             pathResponse = "/var/www/html/dmakitWeb/dataStorage/"
-            command = "python /var/www/html/dmakitWeb/model/launcherClusteringService.py %s %s %s %s 1" % (dataSet, job, iduser, pathResponse)
+            command = "python /var/www/html/dmakitWeb/model/launcherClusteringService.py %s %s %s %s 1 &" % (dataSet, job, iduser, pathResponse)
             print command
